@@ -48,3 +48,4 @@ To improve performance on challenge video was made next steps:
 Other potential improvements:
 * Either detect canny edge and hough parameters based on light and road conditions or run algorithm with different parameters several times trying to get best results. 
 * Improving detecting outliers while generating lane lines. (Maybe run linear regression twice, removing outliers after first run)
+* Use higher polynoms while fitting lane line ( to get curvy lanes in the turns)
