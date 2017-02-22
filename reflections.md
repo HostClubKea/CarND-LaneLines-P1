@@ -2,14 +2,15 @@
 
 ## Pipeline
 
-The detection of the lane marking was done in 5 generakl steps:
+The detection of the lane marking was done in 6 general steps:
 * Converting image to greyscale
 * Applying gausian filter on the image 
 (Remove noise from image which helps us to get cleaner results from next step)
 * Perform Canny edge detection
 (Detects edges in the image) 
+* Apply mask to canny edge image (We know that lane lines are in some region infront of the car and don't want to process other edges)
 * Detecting lines using Hough transformation
-(Detects lines fset of points)
+(Detects lines from set of points)
 * Connecting hough lines into lane lines
 
 
@@ -21,6 +22,15 @@ The detection of the lane lines was done in three steps:
 * Calculating slope for each line and removing all lines which abs slope is greater then 0.5
 * Splitting lines on left and right based on their slope sign
 * Use linear regression to get left and right lane lines
+
+
+## Shortcomings
+What worked quite well on test images and white and yellow videos didn't work so well on challendge one:
+* Algorithm wasn't able to find lane lines on light patch spot on the road 
+* Additional noise from the tree shadows
+* Car was turning and lane line wasn't straight any more
+
+In addition to that we have hardcoded masking region wh
 
 
 
