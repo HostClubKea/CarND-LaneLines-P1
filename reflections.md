@@ -3,17 +3,25 @@
 ## Pipeline
 
 The detection of the lane marking was done in 5 generakl steps:
-1. Converting image to greyscale
-2. Applying gausian filter on the image 
+* Converting image to greyscale
+* Applying gausian filter on the image 
 (Remove noise from image which helps us to get cleaner results from next step)
-3. Perform Canny edge detection
+* Perform Canny edge detection
 (Detects edges in the image) 
-4. Detecting lines using Hough transformation
+* Detecting lines using Hough transformation
 (Detects lines fset of points)
-5. Connecting hough lines into lane lines
+* Connecting hough lines into lane lines
 
 
-Step 5 is new and wasn't described previously
+Step 5 is new and wasn't used in the lesson previously
+
+## Connecting the lines
+Our goal in this project was to get connected lane lines. My solution was to get this lines using linear regression.
+The detection of the lane lines was done in three steps:
+* Calculating slope for each line and removing all lines which abs slope is greater then 0.5
+* Splitting lines on left and right based on their slope sign
+* Use linear regression to get left and right lane lines
+
 
 
 ##Writeup Template
