@@ -5,11 +5,11 @@
 The detection of the lane marking was done in 5 generakl steps:
 1. Converting image to greyscale
 2. Applying gausian filter on the image 
-* Remove noise from image which helps us to get cleaner results from next step
+(Remove noise from image which helps us to get cleaner results from next step)
 3. Perform Canny edge detection
-* Detects edges in the image 
+(Detects edges in the image) 
 4. Detecting lines using Hough transformation
-* Detects lines fset of points
+(Detects lines fset of points)
 5. Connecting hough lines into lane lines
 
 
