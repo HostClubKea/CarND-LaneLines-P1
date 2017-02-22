@@ -14,14 +14,16 @@ The detection of the lane marking was done in 6 general steps:
 * Connecting hough lines into lane lines
 
 
-Step 5 is new and wasn't used in the lesson previously
+Step 6 is new and wasn't used in the lesson previously
 
 ## Connecting the lines
 Our goal in this project was to get connected lane lines. My solution was to get this lines using linear regression.
 The detection of the lane lines was done in three steps:
-* Calculating slope for each line and removing all lines which abs slope is greater then 0.5
-* Splitting lines on left and right based on their slope sign
+* Calculating slope for each line and removing all lines which absolute slope value is greater then 0.5 
+* Splitting lines on left and right based on their slope sign and position on the screen
 * Use linear regression to get left and right lane lines
+
+Then we can draw lanes based on their slope and b parameters and some length (for simplicity used hardcoded value)
 
 
 ## Shortcomings
@@ -30,52 +32,19 @@ What worked quite well on test images and white and yellow videos didn't work so
 * Additional noise from the tree shadows
 * Car was turning and lane line wasn't straight any more
 
-In addition to that we have hardcoded masking region wh
+In addition we would have other problems with current pipeline:
+* Masking region is hardcoded and it would work bad if the car not in the middle of the lane
+* Datecting lanes while switch road lanes would be also a problem
+* Changing light condition and road color would make algorithm work unstable
 
 
+## Improvements
 
-##Writeup Template
+To improve performance on challenge video was made next steps:
+* Greysacale transformation was removed from pipeline (this allowed to get canny edges even on light road patch)
+* Was tuned some canny edge and hough transformation parameters 
+* Was added line smoothing (Outputed line is avarage of current and some previous lines. This helpes with line 'jumps' a lot.  Potentially dengerous in sharp turnes, but we can use sensors to understand when we should switch it off or use smaller smooth window)
 
-###You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
----
-
-**Finding Lane Lines on the Road**
-
-The goals / steps of this project are the following:
-* Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
-
-
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
-
----
-
-### Reflection
-
-###1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
-
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
-
-
-###2. Identify potential shortcomings with your current pipeline
-
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
-
-###3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+Other potential improvements:
+* Either detect canny edge and hough parameters based on light and road conditions or run algorithm with different parameters several times trying to get best results. 
+* Improving detecting outliers while generating lane lines. (Maybe run linear regression twice, removing outliers after first run)
